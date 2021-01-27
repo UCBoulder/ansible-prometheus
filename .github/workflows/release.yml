@@ -6,8 +6,8 @@ on:
       - main
 
 jobs:
-  tag:
-    name: Tag release
+  release:
+    name: Tag and deploy release
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -27,12 +27,6 @@ jobs:
         release_name: "${{ env.VERSION_TAG }}"
         draft: false
         prerelease: false
-
-  deploy:
-    name: Deploy release to Galaxy
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
 
     - name: Deploy the collection
       uses: artis3n/ansible_galaxy_collection@v2
