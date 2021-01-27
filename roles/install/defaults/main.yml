@@ -1,4 +1,0 @@
----
-# defaults file for server
-prometheus_version: "2.24.1"
-prometheus_download_url: "https://github.com/prometheus/prometheus/releases/download/v{{ prometheus_version }}/prometheus-{{ prometheus_version }}.linux-amd64.tar.gz"
