@@ -1,32 +1,40 @@
 ---
-- name: Create tmp dir
-  ansible.builtin.tempfile:
-    state: directory
-    suffix: prometheus
-  register: tmpdir
+- name: Check if prometheus binary exists
+  ansible.builtin.stat:
+    path: "{{ prometheus_bin_dir }}/prometheus"
+  register: existing_binary
 
-- name: Download tarball
-  ansible.builtin.get_url:
-    dest: "{{ tmpdir.path }}"
-    url: "{{ prometheus_download_url }}"
+- name: Install prometheus binary
+  block:
+    - name: Create tmp dir
+      ansible.builtin.tempfile:
+        state: directory
+        suffix: prometheus
+      register: tmpdir
 
-- name: Unpack tarball
-  ansible.builtin.unarchive:
-    remote_src: true
-    src: "{{ tmpdir.path }}/{{ prometheus_tarball }}"
-    dest: "{{ tmpdir.path }}"
+    - name: Download tarball
+      ansible.builtin.get_url:
+        dest: "{{ tmpdir.path }}"
+        url: "{{ prometheus_download_url }}"
 
-- name: Install binaries
-  ansible.builtin.copy:
-    remote_src: true
-    src: "{{ tmpdir.path }}/{{ prometheus_install_slug }}/{{ item }}"
-    dest: "{{ prometheus_bin_dir }}/{{ item }}"
-    mode: "755"
-    owner: root
-    group: root
-  loop: "{{ prometheus_binaries }}"
-  notify: 
-    - restart prometheus
+    - name: Unpack tarball
+      ansible.builtin.unarchive:
+        remote_src: true
+        src: "{{ tmpdir.path }}/{{ prometheus_tarball }}"
+        dest: "{{ tmpdir.path }}"
+
+    - name: Install binaries
+      ansible.builtin.copy:
+        remote_src: true
+        src: "{{ tmpdir.path }}/{{ prometheus_install_slug }}/{{ item }}"
+        dest: "{{ prometheus_bin_dir }}/{{ item }}"
+        mode: "755"
+        owner: root
+        group: root
+      loop: "{{ prometheus_binaries }}"
+      notify: 
+        - restart prometheus
+  when: not existing_binary.stat.exists
 
 - name: Create prometheus group
   ansible.builtin.group:
