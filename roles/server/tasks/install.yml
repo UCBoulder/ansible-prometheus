@@ -1,0 +1,59 @@
+---
+- name: Create tmp dir
+  ansible.builtin.tempfile:
+    state: directory
+    suffix: prometheus
+  register: tmpdir
+
+- name: Download tarball
+  ansible.builtin.get_url:
+    dest: "{{ tmpdir.path }}"
+    url: "{{ prometheus_download_url }}"
+
+- name: Unpack tarball
+  ansible.builtin.unarchive:
+    remote_src: true
+    src: "{{ tmpdir.path }}/{{ prometheus_tarball }}"
+    dest: "{{ tmpdir.path }}"
+
+- name: Install binaries
+  ansible.builtin.copy:
+    remote_src: true
+    src: "{{ tmpdir.path }}/{{ prometheus_install_slug }}/{{ item }}"
+    dest: "{{ prometheus_bin_dir }}/{{ item }}"
+    mode: "755"
+    owner: root
+    group: root
+  loop: "{{ prometheus_binaries }}"
+  notify: 
+    - restart prometheus
+
+- name: Create prometheus group
+  ansible.builtin.group:
+    name: prometheus
+    system: true
+
+- name: Create prometheus user
+  ansible.builtin.user:
+    name: prometheus
+    group: prometheus
+    create_home: no
+    system: yes
+
+- name: Create db directory
+  ansible.builtin.file:
+    state: directory
+    owner: prometheus
+    group: prometheus
+    path: "{{ prometheus_db_dir }}"
+  
+- name: Create systemd service
+  ansible.builtin.template:
+    src: prometheus.service.j2
+    dest: /etc/systemd/system/prometheus.service
+    mode: "644"
+    owner: root
+    group: root
+  notify: 
+    - enable prometheus
+    - restart prometheus

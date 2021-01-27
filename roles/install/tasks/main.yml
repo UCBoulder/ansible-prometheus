@@ -1,2 +1,3 @@
 ---
-# tasks file for install
+# tasks file for server
+- include_tasks: download.yml
