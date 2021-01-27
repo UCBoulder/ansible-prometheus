@@ -3,6 +3,7 @@
   ansible.builtin.stat:
     path: "{{ prometheus_bin_dir }}/prometheus"
   register: existing_binary
+  changed_when: not existing_binary.stat.exists
 
 - name: Install prometheus binary
   block:
@@ -34,7 +35,7 @@
       loop: "{{ prometheus_binaries }}"
       notify: 
         - restart prometheus
-  when: not existing_binary.stat.exists
+  when: not existing_binary.stat.exists and not ansible_check_mode
 
 - name: Create prometheus group
   ansible.builtin.group:
