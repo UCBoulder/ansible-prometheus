@@ -5,13 +5,16 @@
     name: prometheus
     daemon_reload: true
     enabled: yes
+  become: yes
 
 - name: restart prometheus
   systemd:
     name: prometheus
     state: restarted
+  become: yes
 
 - name: reload prometheus
   systemd:
     name: prometheus
     state: reloaded
+  become: yes

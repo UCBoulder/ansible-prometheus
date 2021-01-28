@@ -32,6 +32,7 @@
         mode: "755"
         owner: root
         group: root
+      become: yes
       loop: "{{ prometheus_binaries }}"
       notify: 
         - restart prometheus
@@ -41,6 +42,7 @@
   ansible.builtin.group:
     name: prometheus
     system: true
+  become: yes
 
 - name: Create prometheus user
   ansible.builtin.user:
@@ -48,6 +50,7 @@
     group: prometheus
     create_home: no
     system: yes
+  become: yes
 
 - name: Create db directory
   ansible.builtin.file:
@@ -55,6 +58,7 @@
     owner: prometheus
     group: prometheus
     path: "{{ prometheus_db_dir }}"
+  become: yes
   
 - name: Create systemd service
   ansible.builtin.template:
@@ -63,6 +67,7 @@
     mode: "644"
     owner: root
     group: root
+  become: yes
   notify: 
     - enable prometheus
     - restart prometheus

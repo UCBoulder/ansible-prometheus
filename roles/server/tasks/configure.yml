@@ -5,6 +5,7 @@
     owner: root
     group: root
     mode: "755"
+  become: yes
 
 - name: Create main configuration file
   ansible.builtin.template:
@@ -13,5 +14,6 @@
     owner: root
     group: root
     mode: "644"
+  become: yes
   notify:
     - reload prometheus
