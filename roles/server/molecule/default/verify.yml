@@ -7,7 +7,7 @@
   tasks:
   - name: Check binary version
     ansible.builtin.command:
-      cmd: /usr/local/bin/prometheus --version
+      cmd: /usr/bin/prometheus --version
     register: bin_version
     failed_when: prometheus_version not in bin_version.stderr
     vars:
