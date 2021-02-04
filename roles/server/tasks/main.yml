@@ -1,8 +1,15 @@
 ---
 # tasks file for server
+- name: Add Repo
+  include_role:
+    name: repo
 - name: Install Prometheus Server
   include_tasks: install.yml
   tags: install
 - name: Configure Prometheus Server
   include_tasks: configure.yml
   tags: configure
+- name: Install Node Exporter
+  include_role: 
+    name: client
+  tags: node_exporter
