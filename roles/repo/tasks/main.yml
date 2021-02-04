@@ -1,0 +1,16 @@
+---
+# tasks file for repo
+
+# Repo site: https://packagecloud.io/prometheus-rpm/release
+# Package sources: https://github.com/lest/prometheus-rpm
+- name: Add packagecloud.io/prometheus-rpm repo
+  ansible.builtin.yum_repository:
+    name: prometheus-rpm
+    description: Prometheus RPM repo
+    file: prometheus-rpm
+    baseurl: https://packagecloud.io/prometheus-rpm/release/el/$releasever/$basearch
+    gpgcheck: no
+    repo_gpgcheck: yes
+    gpgkey: https://packagecloud.io/prometheus-rpm/release/gpgkey
+    metadata_expire: "300"
+  become: yes

@@ -1,0 +1,18 @@
+---
+# This is an example playbook to execute Ansible tests.
+
+- name: Verify
+  hosts: all
+  gather_facts: false
+  tasks:
+  - name: Install Prometheus
+    package:
+      name: prometheus2
+      state: present
+    become: yes
+
+  - name: Install Node Exporter
+    package:
+      name: node_exporter
+      state: present
+    become: yes

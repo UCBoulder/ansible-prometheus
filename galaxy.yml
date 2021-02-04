@@ -5,13 +5,13 @@
 # underscores or numbers and cannot contain consecutive underscores
 #namespace: cub_oit_pe
 #use personal namespace for testing while proper one is requested
-namespace: willhaines
+namespace: cub_oit_pe
 
 # The name of the collection. Has the same character restrictions as 'namespace'
 name: prometheus
 
 # The version of the collection. Must be compatible with semantic versioning
-version: 1.2.1
+version: 1.3.0
 
 # The path to the Markdown (.md) readme file. This path is relative to the root of the collection
 readme: README.md
