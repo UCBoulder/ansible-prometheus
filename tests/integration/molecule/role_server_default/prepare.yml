@@ -23,3 +23,7 @@
         group: root
         content: |
           molecule ALL=(ALL) NOPASSWD:ALL
+
+    - name: 'Install Versionlock on RHEL 8'
+      ansible.builtin.package:
+        name: 'python3-dnf-plugin-versionlock'
