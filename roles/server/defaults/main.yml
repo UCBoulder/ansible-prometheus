@@ -1,7 +1,7 @@
 ---
 # defaults file for server
 prometheus_version: "2.24.1"
-prometheus_versionlock: yes
+prometheus_versionlock: present
 
 prometheus_bin_dir: /usr/local/bin
 prometheus_config_dir: /etc/prometheus

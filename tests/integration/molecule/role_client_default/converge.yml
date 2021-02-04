@@ -4,4 +4,4 @@
   tasks:
     - name: "Include client"
       include_role:
-        name: "client"
+        name: cub_oit_pe.prometheus.client

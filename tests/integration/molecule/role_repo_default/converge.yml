@@ -4,4 +4,4 @@
   tasks:
     - name: "Include repo"
       include_role:
-        name: "repo"
+        name: cub_oit_pe.prometheus.repo
