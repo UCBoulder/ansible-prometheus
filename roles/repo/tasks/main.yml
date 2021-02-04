@@ -12,4 +12,5 @@
     gpgcheck: no
     repo_gpgcheck: yes
     gpgkey: https://packagecloud.io/prometheus-rpm/release/gpgkey
-    update_cache: yes
+    metadata_expire: "300"
+  become: yes

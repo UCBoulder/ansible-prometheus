@@ -1,0 +1,12 @@
+---
+# tasks file for client
+- name: Add Repo
+  include_role:
+    name: repo
+- name: Install Node Exporter
+  package:
+    name: node_exporter
+    state: present
+  notify: 
+    - restart node exporter
+  become: yes

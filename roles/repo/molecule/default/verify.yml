@@ -5,6 +5,14 @@
   hosts: all
   gather_facts: false
   tasks:
-  - name: Example assertion
-    assert:
-      that: true
+  - name: Install Prometheus
+    package:
+      name: prometheus2
+      state: present
+    become: yes
+
+  - name: Install Node Exporter
+    package:
+      name: node_exporter
+      state: present
+    become: yes
