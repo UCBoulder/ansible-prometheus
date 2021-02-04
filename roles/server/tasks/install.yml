@@ -1,73 +1,13 @@
 ---
-- name: Check if prometheus binary exists
-  ansible.builtin.stat:
-    path: "{{ prometheus_bin_dir }}/prometheus"
-  register: existing_binary
-  changed_when: not existing_binary.stat.exists
-
-- name: Install prometheus binary
-  block:
-    - name: Create tmp dir
-      ansible.builtin.tempfile:
-        state: directory
-        suffix: prometheus
-      register: tmpdir
-
-    - name: Download tarball
-      ansible.builtin.get_url:
-        dest: "{{ tmpdir.path }}"
-        url: "{{ prometheus_download_url }}"
-
-    - name: Unpack tarball
-      ansible.builtin.unarchive:
-        remote_src: true
-        src: "{{ tmpdir.path }}/{{ prometheus_tarball }}"
-        dest: "{{ tmpdir.path }}"
-
-    - name: Install binaries
-      ansible.builtin.copy:
-        remote_src: true
-        src: "{{ tmpdir.path }}/{{ prometheus_install_slug }}/{{ item }}"
-        dest: "{{ prometheus_bin_dir }}/{{ item }}"
-        mode: "755"
-        owner: root
-        group: root
-      become: yes
-      loop: "{{ prometheus_binaries }}"
-      notify: 
-        - restart prometheus
-  when: not existing_binary.stat.exists and not ansible_check_mode
-
-- name: Create prometheus group
-  ansible.builtin.group:
-    name: prometheus
-    system: true
+- name: Install Prometheus Server Package
+  ansible.builtin.package:
+    name: "prometheus2-{{ prometheus_version }}"
   become: yes
-
-- name: Create prometheus user
-  ansible.builtin.user:
-    name: prometheus
-    group: prometheus
-    create_home: no
-    system: yes
-  become: yes
-
-- name: Create db directory
-  ansible.builtin.file:
-    state: directory
-    owner: prometheus
-    group: prometheus
-    path: "{{ prometheus_db_dir }}"
-  become: yes
-  
-- name: Create systemd service
-  ansible.builtin.template:
-    src: prometheus.service.j2
-    dest: /etc/systemd/system/prometheus.service
-    mode: "644"
-    owner: root
-    group: root
-  become: yes
-  notify: 
+  notify:
     - enable prometheus
     - restart prometheus
+
+- name: Lock Prometheus Version
+  community.general.yum_versionlock:
+    name: "prometheus2-{{ prometheus_version }}"
+    state: prometheus_versionlock
