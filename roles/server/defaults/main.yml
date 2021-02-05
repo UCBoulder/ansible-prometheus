@@ -3,8 +3,16 @@
 prometheus_version: "2.24.1"
 prometheus_versionlock: present
 
-prometheus_bin_dir: /usr/local/bin
 prometheus_config_dir: /etc/prometheus
-prometheus_db_dir: /var/lib/prometheus
 
 prometheus_web_url: "http://localhost:9090"
+
+prometheus_scrape_interval: 15s
+prometheus_evaluation_interval: 15s
+
+prometheus_scrape_configs:
+  - job_name: 'prometheus'
+    static_configs:
+    - targets: ['localhost:9090']
+
+prometheus_alert_configs: {}
