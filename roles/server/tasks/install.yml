@@ -10,4 +10,5 @@
 - name: Lock Prometheus Version
   community.general.yum_versionlock:
     name: "prometheus2-{{ prometheus_version }}"
-    state: "{{ prometheus_versionlock }}"
+    state: present
+  when: prometheus_versionlock
