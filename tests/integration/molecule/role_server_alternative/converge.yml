@@ -7,3 +7,4 @@
         name: cub_oit_pe.prometheus.server
       vars:
         prometheus_version: "2.22.2"
+        prometheus_versionlock: no
