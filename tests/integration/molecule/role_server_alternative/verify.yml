@@ -15,3 +15,11 @@
   - name: Check HTTP
     ansible.builtin.uri:
       url: "http://localhost:9090"
+  - name: Check versionlock
+    ansible.builtin.command:
+      argv:
+        - dnf
+        - versionlock
+        - list
+    register: out
+    failed_when: '"prometheus" in out.stdout'

@@ -22,4 +22,4 @@
         - versionlock
         - list
     register: out
-    failed_when: prometheus not in out.stdout
+    failed_when: '"prometheus" not in out.stdout'

@@ -1,8 +1,10 @@
 # my global config
 global:
-  scrape_interval:     {{ prometheus_scrape_interval }} 
+  scrape_interval: {{ prometheus_scrape_interval }} 
   evaluation_interval: {{ prometheus_evaluation_interval }} 
   # scrape_timeout is set to the global default (10s).
+  external_labels: 
+    {{ prometheus_external_labels | to_nice_yaml(indent=2) | indent(6,False) }}
 
 # Alertmanager configuration
 alerting:
@@ -17,3 +19,9 @@ rule_files:
 # Here it's Prometheus itself.
 scrape_configs:
   {{ prometheus_scrape_configs | to_nice_yaml(indent=2) | indent(2,False) }}
+
+remote_write:
+  {{ prometheus_remote_write | to_nice_yaml(indent=2) | indent(2,False) }}
+
+remote_read:
+  {{ prometheus_remote_read | to_nice_yaml(indent=2) | indent(2,False) }}
