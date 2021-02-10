@@ -16,3 +16,7 @@ prometheus_scrape_configs:
     - targets: ['localhost:9090']
 
 prometheus_alert_configs: {}
+
+prometheus_remote_write: []
+prometheus_remote_read: []
+prometheus_external_labels: {}

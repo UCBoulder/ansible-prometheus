@@ -8,3 +8,10 @@
       vars:
         prometheus_version: "2.22.2"
         prometheus_versionlock: no
+        prometheus_external_labels:
+          origin_prometheus: prometheus01
+        prometheus_remote_write:
+          - url: example.com
+            basic_auth:
+              username: foo
+              password: bar
