@@ -69,4 +69,4 @@ jobs:
           ansible --version &&
           molecule --debug -c molecule/base.yml test -s ${{ matrix.playbook_scenario }}
         # Again ensure you have a reasonable location here.
-        working-directory: ansible_collections/cub_oit_pe/prometheus
+        working-directory: ansible_collections/cub_oit_pe/prometheus/tests/integration
