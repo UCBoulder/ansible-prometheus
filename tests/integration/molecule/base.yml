@@ -2,7 +2,7 @@
 dependency:
   name: galaxy
 driver:
-  name: podman
+  name: ${CONTAINER_RT:-podman}
 platforms:
   - name: rhel8
     image: registry.access.redhat.com/ubi8/ubi-init
