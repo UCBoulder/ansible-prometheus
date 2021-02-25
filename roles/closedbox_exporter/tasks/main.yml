@@ -1,0 +1,12 @@
+---
+# tasks file for closedbox_exporter
+- name: Add Repo
+  include_role:
+    name: repo
+- name: Install Closed Box Exporter
+  package:
+    name: blackbox_exporter
+    state: present
+  notify: 
+    - restart closedbox exporter
+  become: yes
