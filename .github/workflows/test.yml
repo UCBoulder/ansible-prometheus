@@ -31,7 +31,11 @@ jobs:
             image: registry.access.redhat.com/ubi8/ubi-init
             command: /sbin/init
         playbook_scenario:
-          - all
+          - role_client_default
+          - role_closedbox_exporter_default
+          - role_repo_default
+          - role_server_alternative
+          - role_server_default
     steps:
       - name: Check out code
         uses: actions/checkout@v2
