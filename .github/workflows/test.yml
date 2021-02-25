@@ -7,6 +7,8 @@ on:
       - 'roles/**'
       - 'tests/integration/**'
       - '.github/workflows/test.yml'
+    branches:
+      - main
   pull_request:
     # Set the paths you wish to trigger the workflow here
     paths:
