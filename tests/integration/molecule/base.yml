@@ -3,6 +3,16 @@ dependency:
   name: galaxy
 driver:
   name: ${CONTAINER_RT:-podman}
+scenario:
+  test_sequence:
+    - destroy
+    - dependency
+    - create
+    - prepare
+    - converge
+    - verify
+    - cleanup
+    - destroy
 platforms:
   - name: rhel8
     image: registry.access.redhat.com/ubi8/ubi-init
