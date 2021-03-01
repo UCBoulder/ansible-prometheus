@@ -36,6 +36,7 @@ jobs:
           - role_repo_default
           - role_server_alternative
           - role_server_default
+          - role_snmp_exporter_default
     steps:
       - name: Check out code
         uses: actions/checkout@v2
