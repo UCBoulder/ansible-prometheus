@@ -1,0 +1,8 @@
+---
+# handlers file for closedbox_exporter
+- name: restart closedbox exporter
+  service:
+    name: blackbox_exporter
+    enabled: yes
+    state: restarted
+  become: yes

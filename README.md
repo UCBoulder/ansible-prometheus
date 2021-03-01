@@ -17,5 +17,5 @@ mkdir cub_oit_pe
 cd cub_oit_pe
 ln -s $REPO prometheus
 cd $REPO/tests/integration
-molecule -c base.yml test --all
+molecule -c molecule/base.yml test --all
 ```

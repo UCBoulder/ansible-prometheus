@@ -24,6 +24,13 @@
         content: |
           molecule ALL=(ALL) NOPASSWD:ALL
 
+    - name: 'Register Container with RHSM'
+      community.general.redhat_subscription:
+        activationkey: "{{ lookup('env', 'RHSM_ACTIVATION_KEY') }}"
+        org_id: "{{ lookup('env', 'RHSM_ORG_ID') }}"
+        pool_ids: "{{ lookup('env', 'RHSM_POOL_ID') }}"
+      when: ansible_distribution == "RedHat"
+
     - name: 'Install Versionlock on RHEL 8'
       ansible.builtin.package:
         name: 'python3-dnf-plugin-versionlock'
