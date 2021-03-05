@@ -14,6 +14,7 @@
     owner: root
     group: root
     mode: "644"
+    validate: "promtool check config %s"
   become: yes
   notify:
     - reload prometheus
