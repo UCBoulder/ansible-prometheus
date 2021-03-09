@@ -4,7 +4,7 @@ I'd recommend anyone from the the public looking at this in Ansible Galaxy NOT u
 This has mainly been built as a learning expirement. Though it is functional for our needs, it is
 not meant to be featureful and cover all use cases.
 
-Consider (cloudalchemy/prometheus)[https://galaxy.ansible.com/cloudalchemy/prometheus] instead.
+Consider [cloudalchemy/prometheus](https://galaxy.ansible.com/cloudalchemy/prometheus) instead.
 
 ### How to run tests locally
 
